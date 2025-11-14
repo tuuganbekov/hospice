@@ -17,12 +17,41 @@ class Children(models.Model):
     def __str__(self) -> str:
         return f"{self.full_name}"
 
+    class Meta:
+        verbose_name = "Дети"
+        verbose_name_plural = "Дети"
+
 
 class Application(models.Model):
+    class Type(models.TextChoices):
+        DREAM = "DREAM", "Мечта"
+        SELF = "SELF", "Лично"
+        ORGRANIZATION = "ORGANIZATION", "Организация"
+
+    type = models.CharField(
+        "Тип заявки",
+        choices=Type.choices,
+        default=Type.DREAM,
+    )
     name = models.CharField("Имя", max_length=255)
     phone_number = models.CharField("Номер телефона", max_length=30)
-    time_to_call = models.DateTimeField("Время звонка", null=True, blank=True)
-    child = models.ForeignKey(Children, on_delete=models.PROTECT, verbose_name="Ребенок")
+    dream = models.TextField("Мечта", null=True, blank=True)
+    time_to_call = models.DateTimeField(
+        verbose_name="Время звонка",
+        null=True,
+        blank=True,
+    )
+    child = models.ForeignKey(
+        Children,
+        on_delete=models.PROTECT,
+        verbose_name="Ребенок",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self) -> str:
         return f"{self.name}"
+
+    class Meta:
+        verbose_name = "Заявки"
+        verbose_name_plural = "Заявки"

@@ -10,6 +10,7 @@ class ChildrenAdmin(admin.ModelAdmin):
 
 
 @admin.register(Application)
-class ChildrenAdmin(admin.ModelAdmin):
-    list_display = ("name", "phone_number", "time_to_call", "child", )
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = ("name", "phone_number", "time_to_call", "child", "type",)
     search_fields = ("name", )
+    list_filter = ("type", )

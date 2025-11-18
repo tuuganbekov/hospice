@@ -48,6 +48,7 @@ class Application(models.Model):
         null=True,
         blank=True,
     )
+    fulfilled = models.BooleanField(verbose_name="Выполнено", default=False)
 
     def __str__(self) -> str:
         return f"{self.name}"

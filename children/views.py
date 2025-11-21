@@ -9,9 +9,17 @@ from children.serializers import (
 
 
 class ChildrenListAPIView(ListAPIView):
-    queryset = Children.objects.filter(active=True)
+    queryset = Children.objects.all()
     serializer_class = ChildrenSerializer
     pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = Children.objects.all()
+        random_param = self.request.query_params.get("random", "").lower()
+
+        if random_param == "true":
+            return queryset.order_by("?")
+        return queryset
 
 
 class ChildRetrieveAPIView(RetrieveAPIView):
